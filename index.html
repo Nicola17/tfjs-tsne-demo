@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>tSNE for the Web</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link rel="stylesheet" href="d2b46076b28515f8053b7317d9931c62.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="8e255a8ffb687d4222a0f81b918dab82.css">
+    <link rel="stylesheet" href="b4241781ea1341592aa7e7947cb54c36.css">
+
+    <style type="text/css">
+/* 13. Basic Styling with CSS */
+
+/* Style the lines by removing the fill and applying a stroke */
+.line {
+    fill: none;
+    stroke: #ffab00;
+    stroke-width: 3;
+}
+
+/* Style the dots by assigning a fill and stroke */
+.dot {
+    fill: #ffab00;
+    stroke: #fff;
+}
+
+</style>
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">tSNE for the Web</h1>
+      <h2 class="project-tagline">TensorFlow.js Powered tSNE Implementation</h2>
+
+      <a href="https://arxiv.org/abs/1805.10817" class="btn" style="width:250px;">ArXiV Paper</a>
+      <a href="https://github.com/tensorflow/tfjs-tsne" class="btn" style="width:250px;">Implementation</a>
+      <a href="http://nicola17.github.io/" class="btn" style="width:250px;">Corresponding Author</a>
+
+    </section>
+
+    <section class="main-content">
+      <div id="hidden-iter-div" class="controls hidden">
+        <div class="column small-control">
+          <div class="control-text">
+            Iterate
+          </div>
+          <div class="centered">
+            <div>
+              <label class="switch">
+                <input type="checkbox" id="iterateChkBx">
+                <span class="slider-switch round"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="column large-control">
+          <div class="control-text">
+            Transparency
+          </div>
+          <div class="slidecontainer">
+            <input type="range" min="20" max="200" value="110" class="slider" id="alphaSlider">
+          </div>
+        </div>
+
+        <div class="column small-control">
+          <div class="control-text">
+            Texture
+          </div>
+          <div class="centered">
+            <label class="switch">
+              <input type="checkbox" id="textureChkBx">
+              <span class="slider-switch round"></span>
+            </label>
+          </div>
+        </div>
+        <div style="last-column small-control">
+          <div class="control-text">
+            Reset
+          </div>
+          <div class="centered">
+            <button id="resetBtn" class="reset-button" type="button"></button>
+          </div>
+        </div>
+      </div>
+      <div id="canvas-div">
+      </div>
+
+
+      <p id="data-loading-div" style="text-align: center;" class="centered">
+        Loading Data...
+      </p>
+      <div class="centered">
+        <img src="3f7c7c3d259c46718e0ae13565b682a2.svg">
+      </div>
+
+      <h2>
+      The Example
+      </h2>
+      <p>
+        The example above presents the evolution of the tSNE embedding of the <a href="http://yann.lecun.com/exdb/mnist/">MNIST dataset</a> which contains 60.000 images of handwritten digits.
+        By clicking on <i>Iterate</i>, the tSNE embedding is optimized directly in your web browser.
+        By clicking on <i>Texture</i>, you can visualize the trick that makes our algorithm so fast.
+      </p>
+
+      <h2>
+      The Idea
+      </h2>
+      <p><a href="https://arxiv.org/abs/1805.10817">This work</a> presents a TensorFlow.js powered implementation of the tSNE algorithm for high-dimensional data analysis.
+      The development of WebGL tSNE was made possible by two new developments. First, the most computationally intensive operation, the computation of the repulsive force between points, is approximated by drawing a scalar and a vector field in an adaptive-resolution texture.
+      Second, the generated fields are sampled and saved into tensors. Hence, the tSNE optimization is reformulated as a set of tensor operations that are efficiently computed on the GPU using TensorFlow.js. The algorithm builds upon the previous work presented in the <a href="https://lvdmaaten.github.io/publications/papers/JMLR_2014.pdf">Barnes-Hut SNE</a> and the <a href="https://graphics.tudelft.nl/Publications-new/2017/PLVHEV17/tvcg16_approximated_and_user_steerable_tSNE_for_progressive_visual_analytics.pdf">Approximated tSNE</a> algorithms and allows a fast computation of tSNE embeddings directly in the browser.
+      </p>
+
+      <h2>
+      The Team
+      </h2>
+      <p>
+        <a href="http://nicola17.github.io/">Nicola Pezzotti</a> came up with the idea of using adaptive textures to approximate the tSNE gradient during its work at the <a href="https://graphics.tudelft.nl/">Computer Graphics & Visualization</a> at the <a href="https://www.tudelft.nl/en/">Delft University of Technology</a> and implemented a first prototype in C++ and OpenGL.
+        <a href="http://nicola17.github.io/">Nicola</a> later joined <a href="">Google AI</a> in Zürich under the supervision of <a href="https://twitter.com/zzznah">Alexander Mordvintsev</a> who proposed to integrate the algorithm in <a href="https://js.tensorflow.org/">TensorFlow.js</a>.
+        The <a href="https://github.com/tensorflow/tfjs-tsne">tfjs-tsne</a> library was developed by Nicola who received support from <a href="https://github.com/nsthorat">Nikhil Thorat</a> for releasing the code and improving its quality.
+        <a href="http://clome.info/">Yannick Assogba</a> helped with the examples and supervised the release of the open source library.
+      </p>
+
+      <!-- Add a reference so that parcel can bundle the files -->
+      <a id="offsets" href="1caf3309d11296decab7309e98948496.bin"></a>
+      <a id="probabilities" href="2e753ef96a04e36578fdefc9d32bac34.bin"></a>
+      <a id="neighIds" href="1615d996f8257c8544f90306abae00cf.bin"></a>
+      <a id="colors" href="4f84c58fcd74a731ede84ef8c582f71d.bin"></a>
+      <a id="mnistImg" href="6ffe20681e6f18b6e34135cac3e3074b.png"></a>
+
+      <footer class="site-footer">
+        The template for this site is derived from the <span class="site-footer-owner"><a href="https://github.com/jasonlong/cayman-theme">Cayman</a> theme maintained by <a href="https://github.com/jasonlong">jasonlong</a>.</span>
+      </footer>
+
+    </section>
+    <script src="df22bba5d9b0d3a9ea33ea19cbf2f7cd.js"></script>
+  </body>
+
+</html>
