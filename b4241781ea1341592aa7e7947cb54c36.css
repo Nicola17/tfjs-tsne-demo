@@ -12,6 +12,11 @@
   #background-color: rgba(158, 167, 184, 0.2);
 }
 
+#error-div{
+  font-size: 24px;
+  color:#cd0000;
+}
+
 #tsne-computation-canvas{
   /*
   width: 600px;
